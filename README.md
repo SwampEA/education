@@ -1,3 +1,8 @@
+# Задания Кирилла Эдуардовича
+
+<details><summary>Задание 1</summary>
+
+```
 # Local .terraform directories
 **/.terraform/*
 Локальные каталоги .terraform
@@ -54,6 +59,9 @@ override.tf.json
 terraform.rc
 # Игнорировать конфигурационные файлы CLI 
 игнорировать файлы .terraformrc и terraform.rc
+```
+
+</details>
 
 
  
