@@ -63,7 +63,42 @@ terraform.rc
 
 </details>
 
+<details><summary>Задание 2</summary>
 
- 
+склонировал репозиторий с исходным кодом [terraform](https://github.com/hashicorp/terraform.git) 
+
+Какому тегу соответствует коммит 85024d3?
+-
+командой **git show 85024d3** нашел нужный тег
+
+```
+85024d3100 (tag: v0.12.23) v0.12.23
+```
+Сколько родителей у коммита b8d720? Напишите их хеши.
+-
+
+помощью команды **git show b8d720** нахожу 2 родительских коммит следовательно это мержкоммит 
+
+```
+56cd7859e0 
+9ea88f22fc 
+```
+
+Перечислите хеши и комментарии всех коммитов, которые были сделаны между тегами v0.12.23 и v0.12.24.
+-
+командой **git log --oneline v0.12.23 v0.12.24**
+```
+33ff1c03bb (tag: v0.12.24) v0.12.24
+b14b74c493 [Website] vmc provider links
+3f235065b9 Update CHANGELOG.md
+6ae64e247b registry: Fix panic when server is unreachable
+5c619ca1ba website: Remove links to the getting started guide's old location
+06275647e2 Update CHANGELOG.md
+d5f9411f51 command: Fix bug when using terraform login on Windows
+4b6d06cc5d Update CHANGELOG.md
+dd01a35078 Update CHANGELOG.md
+225466bc3e Cleanup after v0.12.23 release
+```
+
 
 
