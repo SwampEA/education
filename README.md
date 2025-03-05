@@ -65,28 +65,28 @@ terraform.rc
 
 <details><summary>Задание 2</summary>
 
-склонировал репозиторий с исходным кодом [terraform](https://github.com/hashicorp/terraform.git) 
-
-Какому тегу соответствует коммит 85024d3?
+#### Cклонировал репозиторий с исходным кодом [terraform](https://github.com/hashicorp/terraform.git) 
+---
+Какому тегу соответствует коммит `85024d3`?
 -
-командой **git show 85024d3** нашел нужный тег
+командой `git show 85024d3` нашел нужный тег
 
 ```
 85024d3100 (tag: v0.12.23) v0.12.23
 ```
-Сколько родителей у коммита b8d720? Напишите их хеши.
+Сколько родителей у коммита `b8d720`? Напишите их хеши.
 -
 
-помощью команды **git show b8d720** нахожу 2 родительских коммит следовательно это мержкоммит 
+помощью команды `git show b8d720` нахожу 2 родительских коммита следовательно это мержкоммит 
 
 ```
-56cd7859e0 
-9ea88f22fc 
+56cd7859e0 perent 1
+9ea88f22fc perent 2
 ```
 
-Перечислите хеши и комментарии всех коммитов, которые были сделаны между тегами v0.12.23 и v0.12.24.
+Перечислите хеши и комментарии всех коммитов, которые были сделаны между тегами `v0.12.23 и v0.12.24`.
 -
-командой **git log --oneline v0.12.23 v0.12.24**
+командой `git log --oneline v0.12.23 v0.12.24`
 ```
 33ff1c03bb (tag: v0.12.24) v0.12.24
 b14b74c493 [Website] vmc provider links
@@ -100,5 +100,38 @@ dd01a35078 Update CHANGELOG.md
 225466bc3e Cleanup after v0.12.23 release
 ```
 
+Найдите коммит, в котором была создана функция `func providerSource`, её определение в коде выглядит так: `func providerSource(...)` (вместо троеточия перечислены аргументы)
+-
+командой `git log -S"func providerSource"` нашел коммиты в которых были добавлены или удалены строки, содержащие `func providerSource`
+```
+5af1e6234ab6da412fb8637393c5a17a1b293663
+8c928e83589d90a031f811fae52a81be7153e82f
+```
+С помощью команды `git show` нахожу добавленую строку `func providerSource(services *disco.Disco)` в первом коммите `8c928e83589d90a031f811fae52a81be7153e82f`
 
+Найдите все коммиты, в которых была изменена функция `globalPluginDirs`.
+-
+командой `git log --oneline -S"globalPluginDirs"` нахожу коммиты в которых изменения функции `globalPluginDirs`
+```
+7c4aeac5f3
+65c4ba7363
+125eb51dc4
+22c121df86 
+7c7e5d8f0a 
+35a058fb3d
+c0b1761096
+8364383c35 
+```
+
+Кто автор функции `synchronizedWriters`?
+-
+Чтобы найти автора функции нам нужен коммит с созданием функции`synchronizedWriters` 
+Нахожу коммиты с изменениями этой функции `git log --oneline -S"synchronizedWriters"`
+``` 
+bdfea50cc8 remove unused
+fd4f7eb0b9 remove prefixed io
+5ac311e2a9 main: synchronize writes to VT100-faker on Windows
+```
+смотрю первый коммит и нахожу автора и его функцию `git show 5ac311e2a9`
+`Author: Martin Atkins <mart@degeneration.co.uk>`
 
