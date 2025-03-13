@@ -139,6 +139,8 @@ fd4f7eb0b9 remove prefixed io
 
 <details><summary>Задание 3 (Работа в тенрминале. Лекция 1)</summary>
 
+### [Задание 3 Работа в терминале](https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-01-terminal/README.md)
+
 Какой переменной можно задать длину журнала `history`, и на какой строчке `manual` это описывается?
 -
 В `man bash` описание переменных которая задает длину журнала `history` начинается на строке `3035`
