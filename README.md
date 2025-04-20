@@ -214,7 +214,8 @@ fd4f7eb0b9 remove prefixed io
 
 Получится ли одновременно передать команде файл на stdin и вывести её stdout в другой файл? Приведите работающий пример.
 -
-grep "текст" < input.txt > matches.txt
+`grep "текст" < input.txt > matches.txt`
+
 греп ищет текст в файле input.txt и результаты поиска сохраняет в matches.txt
 
 Получится ли, находясь в графическом режиме, вывести данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?
@@ -237,4 +238,60 @@ grep "текст" < input.txt > matches.txt
 вывод stdout существующего файла на терминале не отображается
 чтобы оставить stdout на PTY поменяем потоки местами через новый дескриптор 5
 `ls несуществующий_файл существующий_файл 5>&1 1>&2 2>&5 | grep "No such"` тогда stdout останется 
+
+Что выведет команда `cat /proc/$$/environ`? Как ещё можно получить аналогичный по содержанию вывод?
+-
+
+выведет переменные окружения текущего shell-процесса
+
+анологично можно ввести команду `env`
+
+
+Используя man, опишите, что доступно по адресам `/proc/<PID>/cmdline`, `/proc/<PID>/exe`
+-
+```
+Users may not access files and subdirectories inside any /proc/pid directories but their own (the /proc/pid directories themselves  remain  visible).   Sensitive
+files such as /proc/pid/cmdline and /proc/pid/status are now protected against other users.  This makes it impossible to learn whether any user is running a specific program (so long as the program doesn't otherwise reveal itself by its behavior).
+
+
+(Пользователи не могут получать доступ к файлам и подкаталогам внутри директорий /proc/pid, кроме как к своим собственным. (Сами директории /proc/pid остаются видимыми.)
+Такие чувствительные файлы, как /proc/pid/cmdline и /proc/pid/status, теперь защищены от других пользователей.
+Это делает невозможным узнать, запускает ли какой-либо пользователь конкретную программу (если только сама программа не выдаёт себя каким-то иным образом через своё поведение).)
+```
+
+- `/proc/[pid]/exe`
+       
+       Under Linux 2.2 and later, this file is a symbolic link containing the actual pathname of the executed command.  If the pathname has been unlinked, the symbolic link will contain the string '(deleted)' appended to the original pathname.
+
+       Attempting to open this file will yield a file descriptor that can be used to read the executable.  You can also use readlink(2) to read the symbolic link.
+
+       Permission to dereference or read (readlink(2)) this symbolic link is governed by a ptrace access mode PTRACE_MODE_READ_FSCREDS check.
+       
+       Начиная с Linux 2.2, этот файл является символической ссылкой, содержащей полный путь до исполняемого файла, который запустил данный процесс.
+       
+       При попытке открыть этот файл, ты получишь файловый дескриптор, с помощью которого можно читать содержимое исполняемого файла.
+       
+       Право на чтение или разыменование (readlink) этой символической ссылки зависит от прав доступа ptrace, в частности PTRACE_MODE_READ_FSCREDS.
+
+- `/proc/[pid]/cmdline`
+      
+      This file contains the complete command line for the process, unless the process is a zombie.  In the latter case, there is nothing in this file: that is, a read on this file will return 0 characters.  The command-line arguments appear in this file as a set of strings separated by null bytes ('\0'), with a further null byte after the last string.   
+      
+       Этот файл содержит полную командную строку, с которой был запущен процесс.
+       
+       Если процесс — зомби (то есть уже завершился, но ещё не "убран" родительским процессом), то файл будет пустым — при чтении ты получишь 0 символов.Аргументы командной строки в этом файле представлены как набор строк, разделённых нулевыми байтами ('\0'),а после последней строки идёт ещё один нулевой байт.
+
+Узнайте, какую наиболее старшую версию набора инструкций SSE поддерживает ваш процессор с помощью /proc/cpuinfo.
+-
+ 
+ `grep -i sse /proc/cpuinfo`
+ Наиболее старшая версия SSE4.2
+
+
+При открытии нового окна терминала и vagrant ssh создаётся новая сессия и выделяется pty.
+Это можно подтвердить командой tty, которая упоминалась в лекции 3.2
+-
+
+
+
 
